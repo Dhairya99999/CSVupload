@@ -1,0 +1,75 @@
+
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1>File - <%= fileData.file %></h1>
+        <input class="mb-3 mt-2" type="text" id="search" placeholder="Search...">
+        <table class="table table-dark table-bordered table-striped mb-0">
+            <thead>
+                <tr>
+                    <% fileData.header.forEach(function(cell,index){ %>
+                    <th><%= cell %><button class="sort" id="<%= index %>" data-order="desc">↓</button></th>
+                    <% }) %>
+                  </tr>
+                
+              </thead>
+              <tbody>
+              <% fileData.data.forEach(function(row) { %>
+                  <tr>
+                    <% Object.values(row).forEach(function(cell) { %>
+                    <td><%= cell %></td>
+                    <% }) %>
+                  </tr>
+                  <% }) %>
+                </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){
+        
+        $('#search').on('keyup',function(){
+            let value = $(this).val().toLowerCase()
+            $('tbody tr').filter(function(){
+                $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
+            })
+        })
+        $(".sort").click(function() {
+        var column = $(this).attr('id');
+        var order = $(this).attr('data-order');
+        
+        // change sort order
+        if (order === 'desc') {
+          $(this).attr('data-order', 'asc');
+        } else {
+          $(this).attr('data-order', 'desc');
+        }
+        
+        // sort the table
+        sortTable(column, order);
+      });
+      
+      function sortTable(column, order) {
+        var rows = $("tbody tr").get();
+        
+        rows.sort(function(a, b) {
+          var A = $(a).children("td").eq(column).text().toUpperCase();
+          var B = $(b).children("td").eq(column).text().toUpperCase();
+          
+          if (A < B) {
+            return order === 'asc' ? -1 : 1;
+          } else if (A > B) {
+            return order === 'asc' ? 1 : -1;
+          }
+          return 0;
+        });
+        
+        $.each(rows, function(index, row) {
+          $("tbody").append(row);
+        });
+      }
+    });
+  </script>
+
