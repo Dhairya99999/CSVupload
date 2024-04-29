@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = "mongodb://localhost:27017/CSV"
+const url = "mongodb://localhost:27017/CsvFileUpload"
 
 async function mongo() {
         await mongoose.connect(url);
