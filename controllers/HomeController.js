@@ -6,7 +6,7 @@ const path = require('path')
 module.exports.homePage = async function(req, res){
     try{
 
-        let csvFiles = await csvModel.find({})
+        let csvFiles = await csvModel.find().timeout(15000)
         return res.render('home',{
             files : csvFiles,
             title: 'Home',
