@@ -1,9 +1,12 @@
+const dotenv = require('dotenv')
+dotenv.config();
+
 const mongoose = require('mongoose');
 
-const url = "mongodb://localhost:27017/CsvFileUpload"
+const url = process.env.DB_URL
 
 async function mongo() {
-        await mongoose.connect(url);
+        await mongoose.connect(`${url}/csvFileUpload`);
   }
 mongo().then(()=>{
     console.log('Connected to mongoDB')
