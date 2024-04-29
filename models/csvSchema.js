@@ -15,6 +15,6 @@ const csvSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const Csv = mongoose.model('Csv',csvSchema)
+const Csv = mongoose.model('csvFiles',csvSchema)
 
 module.exports = Csv
