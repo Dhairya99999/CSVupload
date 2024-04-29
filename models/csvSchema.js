@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const csvSchema = new mongoose.Schema({
     file: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     header:{
         type:[Object]
